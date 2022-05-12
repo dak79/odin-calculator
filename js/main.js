@@ -9,7 +9,7 @@ function add(a, b) {
 }
 
 /**
-* Substraction
+* Subtraction
 * @param {number} a minuend
 * @param {number} b subtrahend
 * @return {number} difference
@@ -69,7 +69,7 @@ console.log(substract(3, 9));
 console.log(multiply(3, 3));
 console.log(divide(4, 2));
 
-console.log('Operate function')
+console.log('Operate Function')
 console.log(operate("+", 2, 2));
 console.log(operate("-", 3, 9));
 console.log(operate("*", 3, 3));
