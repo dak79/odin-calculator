@@ -62,11 +62,12 @@ function operate(operator, num1, num2) {
     }
 }
 
-const buttons = document.querySelectorAll('.num');
+const numbers = document.querySelectorAll('.num');
 const display = document.querySelector('#display1');
-buttons.forEach(button => {
-    button.addEventListener('click', populateDisplay)
-});
+const operators = document.querySelectorAll('.op');
+numbers.forEach(number => number.addEventListener('click', populateDisplay));
+operators.forEach(operator => operator.addEventListener('click', calculate))
+
 
 /**
 * Display the number typed on calc pad and store it in a variable
@@ -74,8 +75,16 @@ buttons.forEach(button => {
 */
 function populateDisplay(event) {
         display.innerText += event.target.dataset.number;
-        let displayValue = display.innerText;
-        console.log(displayValue);
+}
+
+function calculate(event) {
+    let num1 = display.innerText;
+    console.log(num1);
+    let op = event.target.dataset.operator;
+    console.log(op);
+    display.innerText = '';
+    let num2 = display.innerText;
+    console.log(num2);
 }
 
 /* Test in console */
