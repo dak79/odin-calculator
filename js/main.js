@@ -66,14 +66,16 @@ const buttons = document.querySelectorAll('.num');
 const display = document.querySelector('#display1');
 buttons.forEach(button => {
     button.addEventListener('click', populateDisplay)
-
 });
 
+/**
+* Display the number typed on calc pad and store it in a variable
+* @param {object} event fired from click listener on calc number's buttons
+*/
 function populateDisplay(event) {
-        display.innerHTML += event.target.dataset.number;
+        display.innerText += event.target.dataset.number;
         let displayValue = display.innerText;
         console.log(displayValue);
-
 }
 
 /* Test in console */
