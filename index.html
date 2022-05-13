@@ -5,14 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Calculator</title>
-        <script src="js/main.js"></script>
+        <script src="js/main.js" defer></script>
     </head>
 
     <body>
         <main>
             <section class="display">
-                <div id="display1">2 + 2</div>
-                <div id="dispaly2">4</div>
+                <div id="display1"></div>
             </section>
             <section class="pad">
                 <section class="utility">
@@ -21,18 +20,18 @@
                     <button id="empty2" disabled>EM2</button>
                 </section>
                 <section id="numbers">
-                    <button id="n1">1</button>
-                    <button id="n2">2</button>
-                    <button id="n3">3</button>
-                    <button id="n4">4</button>
-                    <button id="n5">5</button>
-                    <button id="n6">6</button>
-                    <button id="n7">7</button>
-                    <button id="n8">8</button>
-                    <button id="n9">9</button>
-                    <button id="empty3" disabled>EM3</button>
-                    <button id="n0">0</button>
-                    <button id="empty4" disabled>EM4</button>
+                    <button id="n1" class="num" data-number="1">1</button>
+                    <button id="n2" class="num" data-number="2">2</button>
+                    <button id="n3" class="num" data-number="3">3</button>
+                    <button id="n4" class="num" data-number="4">4</button>
+                    <button id="n5" class="num" data-number="5">5</button>
+                    <button id="n6" class="num" data-number="6">6</button>
+                    <button id="n7" class="num" data-number="7">7</button>
+                    <button id="n8" class="num" data-number="8">8</button>
+                    <button id="n9" class="num" data-number="9">9</button>
+                    <button id="empty3" class="num" disabled>EM3</button>
+                    <button id="n0" class="num" data-number="0">0</button>
+                    <button id="empty4" class="num" disabled>EM4</button>
                 </section>
                 <section id="operator">
             </section>

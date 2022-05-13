@@ -62,6 +62,16 @@ function operate(operator, num1, num2) {
     }
 }
 
+const buttons = document.querySelectorAll('.num');
+const display = document.querySelector('#display1');
+buttons.forEach(button => {
+    button.addEventListener('click', (evt) => {
+        display.innerHTML += evt.target.dataset.number;
+        let displayValue = display.innerText;
+        console.log(displayValue);
+    })
+})
+
 /* Test in console */
 console.log('Arithmetic Functions');
 console.log(add(2, 2));
