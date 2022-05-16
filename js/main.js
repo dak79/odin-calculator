@@ -90,6 +90,7 @@ function populateDisplay(event) {
 
 function calculate(event) {
     calculation.operator = event.target.dataset.operator;
+    console.log(calculation.operator)
 if (calculation.firstNumber === null || calculation.secondNumber === null) {
     if (!calculation.isTheSecondNumber) {
         calculation.firstNumber = parseInt(display.innerText);
