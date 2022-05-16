@@ -66,10 +66,13 @@ const numbers = document.querySelectorAll('.num');
 const display = document.querySelector('#display1');
 const operators = document.querySelectorAll('.op');
 const calculation = {
-    firstNumber: 0,
-    firstOperation: true,
+    firstNumber: null,
     isTheSecondNumber: false,
-    secondNumber: 0
+    secondNumber: null,
+    result: null,
+    resetScreen: true,
+    operator: '',
+    nextOperator: ''
 }
 numbers.forEach(number => number.addEventListener('click', populateDisplay));
 operators.forEach(operator => operator.addEventListener('click', calculate))
@@ -80,34 +83,49 @@ operators.forEach(operator => operator.addEventListener('click', calculate))
 * @param {object} event fired from click listener on calc number's buttons
 */
 function populateDisplay(event) {
+    if (calculation.firstNumber === null || calculation.secondNumber === null) {
         display.innerText += event.target.dataset.number;
+    } else if (calculation.isTheSecondNumber) {
+
+        display.innerText += event.target.dataset.number;
+    }
 }
 
 function calculate(event) {
-    let op = event.target.dataset.operator;
-    console.log(op);
-
+    calculation.operator = event.target.dataset.operator;
+if (calculation.firstNumber === null || calculation.secondNumber === null) {
     if (!calculation.isTheSecondNumber) {
         calculation.firstNumber = parseInt(display.innerText);
         calculation.isTheSecondNumber = true;
+
+        console.log(calculation.isTheSecondNumber)
+        console.log(calculation.firstNumber, calculation.secondNumber)
         display.innerText = '';
+
     } else {
         calculation.secondNumber = parseInt(display.innerText);
-        display.innerText = parseInt(operate(op, calculation.firstNumber, calculation.secondNumber));
+        calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
+        display.innerText = calculation.result;
         calculation.isTheSecondNumber = false;
+        calculation.resetScreen = false;
+        console.log(calculation.isTheSecondNumber)
+        console.log(calculation.firstNumber, calculation.secondNumber)
     }
-
+} else {
+    if (!calculation.isTheSecondNumber) {
+        calculation.firstNumber = calculation.result;
+        calculation.isTheSecondNumber = true;
+        calculation.secondNumber = null;
+        display.innerText = '';
+        console.log(calculation.firstNumber, calculation.secondNumber)
+    } else {
+        calculation.secondNumber = parseInt(display.innerText);
+        calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
+        display.innerText = calculation.result;
+        calculation.isTheSecondNumber = false;
+        console.log(calculation.firstNumber, calculation.secondNumber)
+    }
 }
 
-/* Test in console */
-console.log('Arithmetic Functions');
-console.log(add(2, 2));
-console.log(substract(3, 9));
-console.log(multiply(3, 3));
-console.log(divide(4, 2));
 
-console.log('Operate Function')
-console.log(operate("+", 2, 2));
-console.log(operate("-", 3, 9));
-console.log(operate("*", 3, 3));
-console.log(operate("/", 4, 2));
+}
