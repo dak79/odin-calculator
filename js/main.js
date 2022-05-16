@@ -67,6 +67,7 @@ const display = document.querySelector('#display1');
 const operators = document.querySelectorAll('.op');
 const calculation = {
     firstNumber: 0,
+    firstOperation: true,
     isTheSecondNumber: false,
     secondNumber: 0
 }
@@ -84,6 +85,7 @@ function populateDisplay(event) {
 
 function calculate(event) {
     let op = event.target.dataset.operator;
+    console.log(op);
 
     if (!calculation.isTheSecondNumber) {
         calculation.firstNumber = parseInt(display.innerText);
