@@ -70,9 +70,6 @@ const calculation = {
     isTheSecondNumber: false,
     secondNumber: null,
     result: null,
-    resetScreen: true,
-    operator: '',
-    nextOperator: ''
 }
 numbers.forEach(number => number.addEventListener('click', populateDisplay));
 operators.forEach(operator => operator.addEventListener('click', calculate))
