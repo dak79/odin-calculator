@@ -65,6 +65,11 @@ function operate(operator, num1, num2) {
 const numbers = document.querySelectorAll('.num');
 const display = document.querySelector('#display1');
 const operators = document.querySelectorAll('.op');
+const calculation = {
+    firstNumber: 0,
+    isTheSecondNumber: false,
+    secondNumber: 0
+}
 numbers.forEach(number => number.addEventListener('click', populateDisplay));
 operators.forEach(operator => operator.addEventListener('click', calculate))
 
@@ -78,13 +83,18 @@ function populateDisplay(event) {
 }
 
 function calculate(event) {
-    let num1 = display.innerText;
-    console.log(num1);
     let op = event.target.dataset.operator;
-    console.log(op);
-    display.innerText = '';
-    let num2 = display.innerText;
-    console.log(num2);
+
+    if (!calculation.isTheSecondNumber) {
+        calculation.firstNumber = parseInt(display.innerText);
+        calculation.isTheSecondNumber = true;
+        display.innerText = '';
+    } else {
+        calculation.secondNumber = parseInt(display.innerText);
+        display.innerText = parseInt(operate(op, calculation.firstNumber, calculation.secondNumber));
+        calculation.isTheSecondNumber = false;
+    }
+
 }
 
 /* Test in console */
