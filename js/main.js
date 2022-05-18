@@ -92,7 +92,7 @@ function populateDisplay(event) {
 
 /**
 * Compute calculation form user's input. Chain calculations possible even with
-* different operators
+* different operators. Float are rounded at 6 digit.
 * @param {object} event fired from click listener on calc operator buttons
 */
 function calculate(event) {
@@ -108,8 +108,15 @@ function calculate(event) {
 
         } else {
             calculation.secondNumber = parseInt(display.innerText);
-            calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
-            display.innerText = calculation.result;
+            calculation.result = operate(calculation.operator, calculation.firstNumber, calculation.secondNumber);
+
+            // Check if the result is an integer or float.
+            if (Number.isInteger(calculation.result)) {
+                display.innerText = calculation.result;
+
+            } else {
+                display.innerText = calculation.result.toFixed(6);
+            }
             calculation.isTheSecondNumber = false;
 
             // Check if the operator is the same or will change
@@ -124,9 +131,16 @@ function calculate(event) {
     } else {
         calculation.firstNumber = calculation.result;
         calculation.secondNumber = parseInt(display.innerText);
-        calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
-        display.innerText = calculation.result;
+        calculation.result = operate(calculation.operator, calculation.firstNumber, calculation.secondNumber);
 
+        // Check if the result is an integer or float.
+        if (Number.isInteger(calculation.result)) {
+            display.innerText = calculation.result;
+
+        } else {
+            display.innerText = calculation.result.toFixed(6);
+        }
+        
         // Check if operator changed
         if (calculation.operator !== event.target.dataset.operator) {
             calculation.operator = event.target.dataset.operator;
