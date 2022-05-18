@@ -104,7 +104,7 @@ function calculate(event) {
             calculation.firstNumber = Number(display.innerText);
 
             if (!Number.isInteger(calculation.firstNumber)) {
-                calculation.firstNumber.toFixed(6);
+                parseFloat(calculation.firstNumber.toFixed(6));
             }
 
             calculation.isTheSecondNumber = true;
@@ -115,7 +115,7 @@ function calculate(event) {
             calculation.secondNumber = Number(display.innerText);
 
             if (!Number.isInteger(calculation.secondNumber)) {
-                calculation.secondNumber.toFixed(6);
+                parseFloat(calculation.secondNumber.toFixed(6));
             }
 
             calculation.result = Number(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
@@ -125,7 +125,7 @@ function calculate(event) {
                 display.innerText = calculation.result;
 
             } else {
-                display.innerText = calculation.result.toFixed(6);
+                display.innerText = parseFloat(calculation.result.toFixed(6));
             }
             calculation.isTheSecondNumber = false;
 
@@ -143,14 +143,14 @@ function calculate(event) {
 
         // Check if the first number is an integer or float.
         if (!Number.isInteger(calculation.firstNumber)) {
-            calculation.firstNumber.toFixed(6);
+            parseFloat(calculation.firstNumber.toFixed(6));
         }
 
         calculation.secondNumber = Number(display.innerText);
 
         // Check if the second number is an integer or a float
         if (!Number.isInteger(calculation.secondNumber)) {
-            calculation.secondNumber.toFixed(6);
+            parseFloat(calculation.secondNumber.toFixed(6));
         }
 
         calculation.result = Number(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
@@ -160,7 +160,7 @@ function calculate(event) {
             display.innerText = calculation.result;
 
         } else {
-            display.innerText = calculation.result.toFixed(6);
+            display.innerText = parseFloat(calculation.result.toFixed(6));
         }
 
         // Check if operator changed
