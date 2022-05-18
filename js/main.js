@@ -82,7 +82,7 @@ operators.forEach(operator => operator.addEventListener('click', calculate))
 * @param {object} event fired from click listener on calc number's buttons
 */
 function populateDisplay(event) {
-    console.log(digitCounter);
+    // console.log(digitCounter);
     if (digitCounter === 0) {
         display.innerText = '';
     }
@@ -91,32 +91,33 @@ function populateDisplay(event) {
 }
 
 function calculate(event) {
-    calculation.operator = event.target.dataset.operator;
 if (calculation.firstNumber === null || calculation.secondNumber === null) {
     if (!calculation.isTheSecondNumber) {
         calculation.firstNumber = parseInt(display.innerText);
         calculation.isTheSecondNumber = true;
-
         digitCounter = 0;
-
-        console.log(calculation.isTheSecondNumber)
-        console.log(calculation.firstNumber, calculation.secondNumber)
-
+        calculation.operator = event.target.dataset.operator;
     } else {
         calculation.secondNumber = parseInt(display.innerText);
         calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
         display.innerText = calculation.result;
         digitCounter = 0;
-        console.log(calculation.isTheSecondNumber)
-        console.log(calculation.firstNumber, calculation.secondNumber)
+        calculation.isTheSecondNumber = false;
+        if (calculation.operator === event.target.dataset.operator) {
+        } else {
+            calculation.operator = event.target.dataset.operator;
+        }
     }
 } else {
-    if (calculation.isTheSecondNumber) {
+    if (!calculation.isTheSecondNumber) {
         calculation.firstNumber = calculation.result;
         calculation.secondNumber = parseInt(display.innerText);
         calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
         display.innerText = calculation.result;
-        console.log('first number', calculation.firstNumber, calculation.secondNumber)
+        if (calculation.operator === event.target.dataset.operator) {
+        } else {
+            calculation.operator = event.target.dataset.operator;
+        }
         digitCounter = 0;
     }
 }
