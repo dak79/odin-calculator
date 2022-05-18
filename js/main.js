@@ -90,37 +90,52 @@ function populateDisplay(event) {
     digitCounter = digitCounter + 1;
 }
 
+/**
+* Compute calculation form user's input. Chain calculations possible even with
+* different operators
+* @param {object} event fired from click listener on calc operator buttons
+*/
 function calculate(event) {
-if (calculation.firstNumber === null || calculation.secondNumber === null) {
-    if (!calculation.isTheSecondNumber) {
-        calculation.firstNumber = parseInt(display.innerText);
-        calculation.isTheSecondNumber = true;
-        digitCounter = 0;
-        calculation.operator = event.target.dataset.operator;
-    } else {
-        calculation.secondNumber = parseInt(display.innerText);
-        calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
-        display.innerText = calculation.result;
-        digitCounter = 0;
-        calculation.isTheSecondNumber = false;
-        if (calculation.operator === event.target.dataset.operator) {
-        } else {
+    // Check if it is the first input
+    if (calculation.firstNumber === null || calculation.secondNumber === null) {
+
+        // Check if it is the first operand or the second
+        if (!calculation.isTheSecondNumber) {
+            calculation.firstNumber = parseInt(display.innerText);
+            calculation.isTheSecondNumber = true;
             calculation.operator = event.target.dataset.operator;
+            digitCounter = 0;
+
+        } else {
+            calculation.secondNumber = parseInt(display.innerText);
+            calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
+            display.innerText = calculation.result;
+            calculation.isTheSecondNumber = false;
+
+            // Check if the operator is the same or will change
+            if (calculation.operator === event.target.dataset.operator) {
+            } else {
+                calculation.operator = event.target.dataset.operator;
+            }
+
+            digitCounter = 0;
         }
-    }
-} else {
-    if (!calculation.isTheSecondNumber) {
+
+    // From the third input...
+    } else {
         calculation.firstNumber = calculation.result;
         calculation.secondNumber = parseInt(display.innerText);
         calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
         display.innerText = calculation.result;
+
+        // Check if operator changed
         if (calculation.operator === event.target.dataset.operator) {
         } else {
             calculation.operator = event.target.dataset.operator;
         }
+
         digitCounter = 0;
     }
-}
 
 
 }
