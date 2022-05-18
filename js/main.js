@@ -72,6 +72,7 @@ const calculation = {
     result: null,
     operator: ''
 }
+let digitCounter = 0;
 numbers.forEach(number => number.addEventListener('click', populateDisplay));
 operators.forEach(operator => operator.addEventListener('click', calculate))
 
@@ -81,48 +82,49 @@ operators.forEach(operator => operator.addEventListener('click', calculate))
 * @param {object} event fired from click listener on calc number's buttons
 */
 function populateDisplay(event) {
-    if (calculation.firstNumber === null || calculation.secondNumber === null) {
-        display.innerText += event.target.dataset.number;
-    } else if (calculation.isTheSecondNumber) {
-
-        display.innerText += event.target.dataset.number;
+    console.log(digitCounter);
+    if (digitCounter === 0) {
+        display.innerText = '';
     }
+    display.innerText += event.target.dataset.number;
+    digitCounter = digitCounter + 1;
+    // if (calculation.firstNumber === null || calculation.secondNumber === null) {
+    //     display.innerText += event.target.dataset.number;
+    //     digitCounter = digitCounter + 1;
+    // } else if (calculation.isTheSecondNumber) {
+    //     display.innerText += event.target.dataset.number;
+    //     digitCounter += 1;
+    // }
 }
 
 function calculate(event) {
     calculation.operator = event.target.dataset.operator;
-    console.log(calculation.operator)
 if (calculation.firstNumber === null || calculation.secondNumber === null) {
     if (!calculation.isTheSecondNumber) {
         calculation.firstNumber = parseInt(display.innerText);
         calculation.isTheSecondNumber = true;
 
+        digitCounter = 0;
+
         console.log(calculation.isTheSecondNumber)
         console.log(calculation.firstNumber, calculation.secondNumber)
-        display.innerText = '';
 
     } else {
         calculation.secondNumber = parseInt(display.innerText);
         calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
         display.innerText = calculation.result;
-        calculation.isTheSecondNumber = false;
-        calculation.resetScreen = false;
+        digitCounter = 0;
         console.log(calculation.isTheSecondNumber)
         console.log(calculation.firstNumber, calculation.secondNumber)
     }
 } else {
-    if (!calculation.isTheSecondNumber) {
+    if (calculation.isTheSecondNumber) {
         calculation.firstNumber = calculation.result;
-        calculation.isTheSecondNumber = true;
-        calculation.secondNumber = null;
-        display.innerText = '';
-        console.log(calculation.firstNumber, calculation.secondNumber)
-    } else {
         calculation.secondNumber = parseInt(display.innerText);
         calculation.result = parseInt(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
         display.innerText = calculation.result;
-        calculation.isTheSecondNumber = false;
-        console.log(calculation.firstNumber, calculation.secondNumber)
+        console.log('first number', calculation.firstNumber, calculation.secondNumber)
+        digitCounter = 0;
     }
 }
 
