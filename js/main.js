@@ -88,13 +88,6 @@ function populateDisplay(event) {
     }
     display.innerText += event.target.dataset.number;
     digitCounter = digitCounter + 1;
-    // if (calculation.firstNumber === null || calculation.secondNumber === null) {
-    //     display.innerText += event.target.dataset.number;
-    //     digitCounter = digitCounter + 1;
-    // } else if (calculation.isTheSecondNumber) {
-    //     display.innerText += event.target.dataset.number;
-    //     digitCounter += 1;
-    // }
 }
 
 function calculate(event) {
