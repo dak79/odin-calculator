@@ -113,8 +113,7 @@ function calculate(event) {
             calculation.isTheSecondNumber = false;
 
             // Check if the operator is the same or will change
-            if (calculation.operator === event.target.dataset.operator) {
-            } else {
+            if (calculation.operator !== event.target.dataset.operator) {
                 calculation.operator = event.target.dataset.operator;
             }
 
@@ -129,8 +128,7 @@ function calculate(event) {
         display.innerText = calculation.result;
 
         // Check if operator changed
-        if (calculation.operator === event.target.dataset.operator) {
-        } else {
+        if (calculation.operator !== event.target.dataset.operator) {
             calculation.operator = event.target.dataset.operator;
         }
 
