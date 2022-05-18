@@ -71,10 +71,11 @@ const calculation = {
     secondNumber: null,
     result: null,
     operator: ''
-}
+};
+
 let digitCounter = 0;
 numbers.forEach(number => number.addEventListener('click', populateDisplay));
-operators.forEach(operator => operator.addEventListener('click', calculate))
+operators.forEach(operator => operator.addEventListener('click', calculate));
 
 
 /**
