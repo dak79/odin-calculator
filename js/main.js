@@ -78,11 +78,11 @@ operators.forEach(operator => operator.addEventListener('click', calculate))
 
 
 /**
-* Display the number typed on calc pad and store it in a variable
+* Display the number typed on calc pad and store it in a variable. Compute the
+* the number of digit for reset calculator screen at the first digit.
 * @param {object} event fired from click listener on calc number's buttons
 */
 function populateDisplay(event) {
-    // console.log(digitCounter);
     if (digitCounter === 0) {
         display.innerText = '';
     }
