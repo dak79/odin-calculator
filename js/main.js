@@ -66,7 +66,6 @@ const numbers = document.querySelectorAll('.num');
 const display = document.querySelector('#display1');
 const operators = document.querySelectorAll('.op');
 
-
 const calculation = {
     firstNumber: null,
     isTheSecondNumber: false,
