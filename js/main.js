@@ -193,6 +193,9 @@ function equalButton(){
     calculation.secondNumber = null;
 }
 
+/**
+* Clear "AC" button functionality
+*/
 function clear(){
     calculation.firstNumber = null;
     calculation.isTheSecondNumber = false;
