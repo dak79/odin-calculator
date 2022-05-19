@@ -153,6 +153,13 @@ function callOperate(event) {
         parseFloat(calculation.secondNumber.toFixed(6));
     }
 
+    // Division for 0
+    if (calculation.operator === '/' && calculation.secondNumber === 0) {
+        display.innerText = 'Divided for 0';
+        equalButton();
+        digitCounter = 0;
+    }
+
     // Check if we have the necessary parameters for calling operate
     if (calculation.operator && calculation.firstNumber && calculation.secondNumber) {
 
@@ -178,6 +185,7 @@ function callOperate(event) {
     if (calculation.operator === '=') {
         equalButton();
     }
+
 
     // Reset display
     digitCounter = 0;
