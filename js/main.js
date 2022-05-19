@@ -65,6 +65,8 @@ function operate(operator, num1, num2) {
 const numbers = document.querySelectorAll('.num');
 const display = document.querySelector('#display1');
 const operators = document.querySelectorAll('.op');
+
+
 const calculation = {
     firstNumber: null,
     isTheSecondNumber: false,
@@ -76,7 +78,6 @@ const calculation = {
 let digitCounter = 0;
 numbers.forEach(number => number.addEventListener('click', populateDisplay));
 operators.forEach(operator => operator.addEventListener('click', calculate));
-
 
 /**
 * Display the number typed on calc pad and store it in a variable. Compute the
@@ -97,13 +98,14 @@ function populateDisplay(event) {
 * @param {object} event fired from click listener on calc operator buttons
 */
 function calculate(event) {
+
     // Check if it is the first input
     if (calculation.firstNumber === null || calculation.secondNumber === null) {
-
         // Check if it is the first operand or the second
         if (!calculation.isTheSecondNumber) {
             calculation.firstNumber = Number(display.innerText);
 
+            // Check if it is an integer or float
             if (!Number.isInteger(calculation.firstNumber)) {
                 parseFloat(calculation.firstNumber.toFixed(6));
             }
@@ -112,27 +114,49 @@ function calculate(event) {
             calculation.operator = event.target.dataset.operator;
             digitCounter = 0;
 
+            // Equality button after only first number
+            if (calculation.operator === '=') {
+                calculation.operator = '';
+                calculation.firstNumber = null;
+                calculation.isTheSecondNumber = false;
+                calculation.secondNumber = null;
+            }
+
         } else {
             calculation.secondNumber = Number(display.innerText);
 
+            // Check if the second number is an integer or float
             if (!Number.isInteger(calculation.secondNumber)) {
                 parseFloat(calculation.secondNumber.toFixed(6));
             }
 
-            calculation.result = Number(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
+            // Check if we have the necessary parameters for calling operate
+            if (calculation.operator && calculation.firstNumber && calculation.secondNumber) {
 
-            // Check if the result is an integer or float.
-            if (Number.isInteger(calculation.result)) {
-                display.innerText = calculation.result;
+                calculation.result = Number(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
 
-            } else {
-                display.innerText = parseFloat(calculation.result.toFixed(6));
+                // Check if the result is an integer or float and display it.
+                if (Number.isInteger(calculation.result)) {
+                    display.innerText = calculation.result;
+
+                } else {
+                    display.innerText = parseFloat(calculation.result.toFixed(6));
+                }
             }
+
             calculation.isTheSecondNumber = false;
 
             // Check if the operator is the same or will change
             if (calculation.operator !== event.target.dataset.operator) {
                 calculation.operator = event.target.dataset.operator;
+            }
+
+            // Equal button after second number
+            if (calculation.operator === '=') {
+                calculation.operator = '';
+                calculation.firstNumber = null;
+                calculation.isTheSecondNumber = false;
+                calculation.secondNumber = null;
             }
 
             digitCounter = 0;
@@ -154,21 +178,33 @@ function calculate(event) {
             parseFloat(calculation.secondNumber.toFixed(6));
         }
 
-        calculation.result = Number(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
+        // Check if we have all parameters to call operate
+        if (calculation.operator && calculation.firstNumber && calculation.secondNumber) {
 
-        // Check if the result is an integer or float.
-        if (Number.isInteger(calculation.result)) {
-            display.innerText = calculation.result;
+            calculation.result = Number(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
 
-        } else {
-            display.innerText = parseFloat(calculation.result.toFixed(6));
+            // Check if the result is an integer or float and display it.
+            if (Number.isInteger(calculation.result)) {
+                display.innerText = calculation.result;
+
+            } else {
+                display.innerText = parseFloat(calculation.result.toFixed(6));
+            }
         }
+
 
         // Check if operator changed
         if (calculation.operator !== event.target.dataset.operator) {
             calculation.operator = event.target.dataset.operator;
         }
 
+        // Equality on third or more compute
+        if (calculation.operator === '=') {
+            calculation.operator = '';
+            calculation.firstNumber = null;
+            calculation.isTheSecondNumber = false;
+            calculation.secondNumber = null;
+        }
         digitCounter = 0;
     }
 }
