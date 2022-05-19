@@ -63,7 +63,7 @@ function operate(operator, num1, num2) {
 }
 
 const numbers = document.querySelectorAll('.num');
-const display = document.querySelector('#display1');
+const display = document.querySelector('#display');
 const operators = document.querySelectorAll('.op');
 const clearButton = document.querySelector('#cancel');
 
