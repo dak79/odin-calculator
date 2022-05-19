@@ -65,6 +65,7 @@ function operate(operator, num1, num2) {
 const numbers = document.querySelectorAll('.num');
 const display = document.querySelector('#display1');
 const operators = document.querySelectorAll('.op');
+const clearButton = document.querySelector('#cancel');
 
 const calculation = {
     firstNumber: null,
@@ -77,7 +78,7 @@ const calculation = {
 let digitCounter = 0;
 numbers.forEach(number => number.addEventListener('click', populateDisplay));
 operators.forEach(operator => operator.addEventListener('click', calculate));
-
+clearButton.addEventListener('click', clear);
 /**
 * Display the number typed on calc pad and store it in a variable. Compute the
 * the number of digit for reset calculator screen at the first digit.
@@ -190,4 +191,13 @@ function equalButton(){
     calculation.firstNumber = null;
     calculation.isTheSecondNumber = false;
     calculation.secondNumber = null;
+}
+
+function clear(){
+    calculation.firstNumber = null;
+    calculation.isTheSecondNumber = false;
+    calculation.secondNumber = null;
+    calculation.result = null;
+    calculation.operator = '';
+    display.innerText = 0;
 }
