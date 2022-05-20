@@ -65,7 +65,9 @@ function operate(operator, num1, num2) {
 const numbers = document.querySelectorAll('.num');
 const display = document.querySelector('#display');
 const operators = document.querySelectorAll('.op');
-const clearButton = document.querySelector('#cancel');
+const clearBtn = document.querySelector('#cancel');
+const decimalBtn = document.querySelector('#decimal');
+
 
 const calculation = {
     firstNumber: null,
@@ -78,7 +80,9 @@ const calculation = {
 let digitCounter = 0;
 numbers.forEach(number => number.addEventListener('click', populateDisplay));
 operators.forEach(operator => operator.addEventListener('click', calculate));
-clearButton.addEventListener('click', clear);
+clearBtn.addEventListener('click', clear);
+
+
 /**
 * Display the number typed on calc pad and store it in a variable. Compute the
 * the number of digit for reset calculator screen at the first digit.
@@ -87,9 +91,16 @@ clearButton.addEventListener('click', clear);
 function populateDisplay(event) {
     if (digitCounter === 0) {
         display.innerText = '';
+        decimalBtn.disabled = false;
     }
+
     display.innerText += event.target.dataset.number;
-    digitCounter = digitCounter + 1;
+    digitCounter += 1;
+
+    // Allowing only one .
+    if (event.target.dataset.number === '.') {
+        decimalBtn.disabled = true;
+    }
 }
 
 /**
@@ -186,7 +197,6 @@ function callOperate(event) {
         equalButton();
     }
 
-
     // Reset display
     digitCounter = 0;
 }
@@ -211,4 +221,8 @@ function clear(){
     calculation.result = null;
     calculation.operator = '';
     display.innerText = 0;
+}
+
+function decimal() {
+    display.innerText += '.';
 }
