@@ -67,6 +67,7 @@ const display = document.querySelector('#display');
 const operators = document.querySelectorAll('.op');
 const clearBtn = document.querySelector('#cancel');
 const decimalBtn = document.querySelector('#decimal');
+const delBtn = document.querySelector('#backspace');
 
 
 const calculation = {
@@ -81,6 +82,7 @@ let digitCounter = 0;
 numbers.forEach(number => number.addEventListener('click', populateDisplay));
 operators.forEach(operator => operator.addEventListener('click', calculate));
 clearBtn.addEventListener('click', clear);
+delBtn.addEventListener('click', backspace);
 
 
 /**
@@ -223,6 +225,14 @@ function clear(){
     display.innerText = 0;
 }
 
-function decimal() {
-    display.innerText += '.';
+function backspace() {
+
+    const number = display.innerText;
+    const trimmedNumber = number.slice(0, -1);
+
+    display.innerText = trimmedNumber;
+
+    if (!b) {
+        display.innerText = 0;
+    }
 }
