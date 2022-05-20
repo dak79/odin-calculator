@@ -225,6 +225,9 @@ function clear(){
     display.innerText = 0;
 }
 
+/**
+* Backspace "DEL" button functionality
+*/
 function backspace() {
 
     const number = display.innerText;
