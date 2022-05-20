@@ -248,6 +248,7 @@ function backspace() {
 
     if (!trimmedNumber || number === 'Divided for 0') {
         display.innerText = 0;
+        digitCounter = 0;
     }
 }
 
