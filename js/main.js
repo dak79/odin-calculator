@@ -288,7 +288,7 @@ function root(){
         parseFloat(number.toFixed(6))
     }
 
-    if (number < 0) {
+    if (number < 0 || isNaN(number)) {
         display.innerText = 'Use only real numbers'
     } else {
         const sr = Math.sqrt(number);
