@@ -68,6 +68,7 @@ const operators = document.querySelectorAll('.op');
 const clearBtn = document.querySelector('#cancel');
 const decimalBtn = document.querySelector('#decimal');
 const delBtn = document.querySelector('#backspace');
+const negativeBtn = document.querySelector('#negative');
 
 
 const calculation = {
@@ -83,6 +84,7 @@ numbers.forEach(number => number.addEventListener('click', populateDisplay));
 operators.forEach(operator => operator.addEventListener('click', calculate));
 clearBtn.addEventListener('click', clear);
 delBtn.addEventListener('click', backspace);
+negativeBtn.addEventListener('click', negative);
 
 
 /**
@@ -102,6 +104,12 @@ function populateDisplay(event) {
     // Allowing only one .
     if (event.target.dataset.number === '.') {
         decimalBtn.disabled = true;
+    }
+
+    if (calculation.operator === '-') {
+        negativeBtn.disabled = true;
+    } else {
+        negativeBtn.disabled = false;
     }
 }
 
@@ -211,6 +219,7 @@ function equalButton(){
     calculation.firstNumber = null;
     calculation.isTheSecondNumber = false;
     calculation.secondNumber = null;
+    negativeBtn.disabled = false;
 }
 
 /**
@@ -223,6 +232,8 @@ function clear(){
     calculation.result = null;
     calculation.operator = '';
     display.innerText = 0;
+    digitCounter = 0;
+    negativeBtn.disabled = false;
 }
 
 /**
@@ -235,9 +246,28 @@ function backspace() {
 
     display.innerText = trimmedNumber;
 
-    console.log (display.innerText, typeof(display.innerText))
-
     if (!trimmedNumber || number === 'Divided for 0') {
         display.innerText = 0;
     }
+}
+
+/**
+* Negative and positive number, "-/+" button functionality
+*/
+function negative(){
+    const number = display.innerText;
+
+    if (number !== '0' && number !== 'Divided for 0') {
+        const firstChar = number.slice(0, 1)
+        if (firstChar === '-') {
+            display.innerText = number.substring(1);
+
+        } else {
+            display.innerHTML = `-${display.innerText}`;
+        }
+
+    } else {
+        display.innerHTML = 0;
+    }
+
 }
