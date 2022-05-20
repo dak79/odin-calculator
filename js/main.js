@@ -1,3 +1,28 @@
+const numbers = document.querySelectorAll('.num');
+const display = document.querySelector('#display');
+const operators = document.querySelectorAll('.op');
+const clearBtn = document.querySelector('#cancel');
+const decimalBtn = document.querySelector('#decimal');
+const delBtn = document.querySelector('#backspace');
+const negativeBtn = document.querySelector('#negative');
+const squareRoot = document.querySelector('#squareRoot');
+
+const calculation = {
+    firstNumber: null,
+    isTheSecondNumber: false,
+    secondNumber: null,
+    result: null,
+    operator: ''
+};
+
+let digitCounter = 0;
+numbers.forEach(number => number.addEventListener('click', populateDisplay));
+operators.forEach(operator => operator.addEventListener('click', calculate));
+clearBtn.addEventListener('click', clear);
+delBtn.addEventListener('click', backspace);
+negativeBtn.addEventListener('click', negative);
+squareRoot.addEventListener('click', root);
+
 /**
 * Addition
 * @param {number} a first addend
@@ -62,29 +87,6 @@ function operate(operator, num1, num2) {
     }
 }
 
-const numbers = document.querySelectorAll('.num');
-const display = document.querySelector('#display');
-const operators = document.querySelectorAll('.op');
-const clearBtn = document.querySelector('#cancel');
-const decimalBtn = document.querySelector('#decimal');
-const delBtn = document.querySelector('#backspace');
-const negativeBtn = document.querySelector('#negative');
-
-
-const calculation = {
-    firstNumber: null,
-    isTheSecondNumber: false,
-    secondNumber: null,
-    result: null,
-    operator: ''
-};
-
-let digitCounter = 0;
-numbers.forEach(number => number.addEventListener('click', populateDisplay));
-operators.forEach(operator => operator.addEventListener('click', calculate));
-clearBtn.addEventListener('click', clear);
-delBtn.addEventListener('click', backspace);
-negativeBtn.addEventListener('click', negative);
 
 
 /**
@@ -245,8 +247,10 @@ function backspace() {
     const trimmedNumber = number.slice(0, -1);
 
     display.innerText = trimmedNumber;
+    digitCounter -= 1;
 
-    if (!trimmedNumber || number === 'Divided for 0') {
+
+    if (!trimmedNumber || number === 'Divided for 0' || number === 'Use only real numbers') {
         display.innerText = 0;
         digitCounter = 0;
     }
@@ -258,7 +262,7 @@ function backspace() {
 function negative(){
     const number = display.innerText;
 
-    if (number !== '0' && number !== 'Divided for 0') {
+    if (number !== '0' && number !== 'Divided for 0' && number !== 'Use only real numbers') {
         const firstChar = number.slice(0, 1)
         if (firstChar === '-') {
             display.innerText = number.substring(1);
@@ -271,4 +275,30 @@ function negative(){
         display.innerHTML = 0;
     }
 
+}
+
+/**
+* Square root "V" button functionality
+*/
+function root(){
+
+    const number = Number(display.innerText);
+
+    if (!Number.isInteger(number)){
+        parseFloat(number.toFixed(6))
+    }
+
+    if (number < 0) {
+        display.innerText = 'Use only real numbers'
+    } else {
+        const sr = Math.sqrt(number);
+
+        if (!Number.isInteger(sr)) {
+            display.innerText = parseFloat(sr.toFixed(6));
+        } else {
+            display.innerText = sr;
+        }
+    }
+
+    digitCounter = 0;
 }
