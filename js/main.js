@@ -235,7 +235,9 @@ function backspace() {
 
     display.innerText = trimmedNumber;
 
-    if (!b) {
+    console.log (display.innerText, typeof(display.innerText))
+
+    if (!trimmedNumber || number === 'Divided for 0') {
         display.innerText = 0;
     }
 }
