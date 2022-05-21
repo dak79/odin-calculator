@@ -87,8 +87,6 @@ function operate(operator, num1, num2) {
     }
 }
 
-
-
 /**
 * Display the number typed on calc pad and store it in a variable. Compute the
 * the number of digit for reset calculator screen at the first digit.
@@ -236,6 +234,7 @@ function clear(){
     display.innerText = 0;
     digitCounter = 0;
     negativeBtn.disabled = false;
+    decimalBtn.disabled = false;
 }
 
 /**
