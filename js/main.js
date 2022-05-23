@@ -145,6 +145,9 @@ function calculate(event) {
 
         } else {
             calculation.secondNumber = Number(display.innerText);
+            if (!calculation.secondNumber) {
+                calculation.secondNumber = calculation.firstNumber
+            }
             callOperate(event);
         }
 
