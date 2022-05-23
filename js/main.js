@@ -22,6 +22,7 @@ clearBtn.addEventListener('click', clear);
 delBtn.addEventListener('click', backspace);
 negativeBtn.addEventListener('click', negative);
 squareRoot.addEventListener('click', root);
+document.addEventListener('keydown', keyboardSupport);
 
 /**
 * Addition
@@ -126,6 +127,7 @@ function calculate(event) {
         // Check if it is the first operand or the second
         if (!calculation.isTheSecondNumber) {
             calculation.firstNumber = Number(display.innerText);
+            console.log(calculation.firstNumber);
 
             // Check if it is an integer or float
             if (!Number.isInteger(calculation.firstNumber)) {
@@ -133,7 +135,16 @@ function calculate(event) {
             }
 
             calculation.isTheSecondNumber = true;
-            calculation.operator = event.target.dataset.operator;
+
+            // Assign operator according to clicked button
+            if (event instanceof MouseEvent) {
+                calculation.operator = event.target.dataset.operator;
+            }
+
+            // Assign operator according key pressed
+            if (event instanceof KeyboardEvent){
+                calculation.operator = event.key;
+            }
 
             // Reset Display
             digitCounter = 0;
@@ -145,9 +156,12 @@ function calculate(event) {
 
         } else {
             calculation.secondNumber = Number(display.innerText);
+
+            // Use the first number if the second is null
             if (!calculation.secondNumber) {
-                calculation.secondNumber = calculation.firstNumber
+                calculation.secondNumber = Number(calculation.firstNumber);
             }
+
             callOperate(event);
         }
 
@@ -161,6 +175,12 @@ function calculate(event) {
         }
 
         calculation.secondNumber = Number(display.innerText);
+
+        // Use the first number if the second is null
+        if (!calculation.secondNumber) {
+            calculation.secondNumber = Number(calculation.firstNumber);
+        }
+
         callOperate(event);
      }
 }
@@ -189,21 +209,44 @@ function callOperate(event) {
 
         calculation.result = Number(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
 
-        // Check if the result is an integer or float and display it.
-        if (Number.isInteger(calculation.result)) {
-            display.innerText = calculation.result;
-
+        if (!calculation.result) {
+            display.innerText = 0;
         } else {
-            display.innerText = parseFloat(calculation.result.toFixed(6));
+
+            // Check if the result is an integer or float and display it.
+            if (Number.isInteger(calculation.result)) {
+                display.innerText = calculation.result;
+
+            } else {
+                display.innerText = parseFloat(calculation.result.toFixed(6));
+            }
+
         }
+
+    } else {
+        display.innerText = 0;
     }
 
     calculation.isTheSecondNumber = false;
 
-    // Check if the operator is the same or will change
-    if (calculation.operator !== event.target.dataset.operator) {
-        calculation.operator = event.target.dataset.operator;
+    // Re-assign (eventually) operator from mouse event
+    if (event instanceof MouseEvent) {
+
+        // Check if the operator is the same or will change
+        if (calculation.operator !== event.target.dataset.operator) {
+            calculation.operator = event.target.dataset.operator;
+        }
     }
+
+    // Re-assign (eventually) operator for keyboard event
+    if (event instanceof KeyboardEvent) {
+
+        // Check if the operator is the same or will change
+        if (calculation.operator !== event.key) {
+            calculation.operator = event.key;
+        }
+    }
+
 
     // Equal button pressed
     if (calculation.operator === '=') {
@@ -303,4 +346,54 @@ function root(){
     }
 
     digitCounter = 0;
+}
+
+
+
+function keyboardSupport(event) {
+
+    console.log(event.key);
+
+    if (event.key >= 0 && event.key  <= 9) {
+
+        if (digitCounter === 0) {
+            display.innerText = '';
+        }
+
+        display.innerText += event.key;
+        digitCounter += 1;
+    }
+
+    if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/' || event.key === '=') {
+        calculate(event);
+    }
+
+    if (event.key === 'c') {
+        clear();
+    }
+
+    if (event.key === 'Backspace') {
+        backspace();
+    }
+
+    if (event.key === 'v') {
+        root();
+    }
+
+    if (calculation.operator !== '-') {
+        if (event.key === '_') {
+            negative();
+        }
+    }
+
+    if (event.key === '.') {
+        const displayString = display.innerText;
+
+        if (!displayString.includes('.')){
+            display.innerText += '.';
+        }
+
+    }
+
+
 }
