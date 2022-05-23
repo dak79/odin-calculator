@@ -127,7 +127,6 @@ function calculate(event) {
         // Check if it is the first operand or the second
         if (!calculation.isTheSecondNumber) {
             calculation.firstNumber = Number(display.innerText);
-            console.log(calculation.firstNumber);
 
             // Check if it is an integer or float
             if (!Number.isInteger(calculation.firstNumber)) {
