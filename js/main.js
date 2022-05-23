@@ -348,12 +348,13 @@ function root(){
     digitCounter = 0;
 }
 
-
-
+/**
+* Keyboard input for calculator
+* @param {object} event fired from keydown listener
+*/
 function keyboardSupport(event) {
 
-    console.log(event.key);
-
+    // Type numbers on display
     if (event.key >= 0 && event.key  <= 9) {
 
         if (digitCounter === 0) {
@@ -364,36 +365,40 @@ function keyboardSupport(event) {
         digitCounter += 1;
     }
 
+    // Calculate when an operator or equal is pressed
     if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/' || event.key === '=') {
         calculate(event);
     }
 
+    // Clear display
     if (event.key === 'c') {
         clear();
     }
 
+    // Del functionality on 'Backspace'
     if (event.key === 'Backspace') {
         backspace();
     }
 
+    // Square root on 'v'
     if (event.key === 'v') {
         root();
     }
 
+    // +/- on '_'
     if (calculation.operator !== '-') {
         if (event.key === '_') {
             negative();
         }
     }
 
+    // Add decimal sign
     if (event.key === '.') {
         const displayString = display.innerText;
 
+        // Allow only one '.'
         if (!displayString.includes('.')){
             display.innerText += '.';
         }
-
     }
-
-
 }
