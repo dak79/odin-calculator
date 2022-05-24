@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Calculator</title>
+        <link rel="stylesheet" href="css/style.css">
         <script src="js/main.js" defer></script>
     </head>
 
@@ -13,33 +14,27 @@
             <section id="sceen">
                 <div id="display">0</div>
             </section>
-            <section class="pad">
-                <section class="utility">
-                    <button id="cancel">C</button>
-                    <button id="negative">-/+</button>
-                    <button id="squareRoot" >&#8730;</button>
-                </section>
-                <section id="numbers">
-                    <button id="n1" class="num" data-number="1">1</button>
-                    <button id="n2" class="num" data-number="2">2</button>
-                    <button id="n3" class="num" data-number="3">3</button>
-                    <button id="n4" class="num" data-number="4">4</button>
-                    <button id="n5" class="num" data-number="5">5</button>
-                    <button id="n6" class="num" data-number="6">6</button>
-                    <button id="n7" class="num" data-number="7">7</button>
-                    <button id="n8" class="num" data-number="8">8</button>
-                    <button id="n9" class="num" data-number="9">9</button>
-                    <button id="decimal" class="num" data-number=".">.</button>
-                    <button id="n0" class="num" data-number="0">0</button>
-                    <button id="backspace">DEL</button>
-                </section>
-                <section id="operator">
-                    <button id="add" class="op" data-operator="+">+</button>
-                    <button id="subtract" class="op" data-operator="-">-</button>
-                    <button id="multiply" class="op" data-operator="*">×</button>
-                    <button id="divide" class="op" data-operator="/">÷</button>
-                    <button id="equal" class="op" data-operator="=">=</button>
-                </section>
+            <section id="pad">
+                    <button id="cancel" class="btnPad">C</button>
+                    <button id="negative" class="btnPad">-/+</button>
+                    <button id="squareRoot" class="btnPad">&#8730;</button>
+                    <button id="divide" class="op btnPad" data-operator="/">÷</button>
+                    <button id="n1" class="num btnPad" data-number="1">1</button>
+                    <button id="n2" class="num btnPad" data-number="2">2</button>
+                    <button id="n3" class="num btnPad" data-number="3">3</button>
+                    <button id="add" class="op btnPad" data-operator="+">+</button>
+                    <button id="n4" class="num btnPad" data-number="4">4</button>
+                    <button id="n5" class="num btnPad" data-number="5">5</button>
+                    <button id="n6" class="num btnPad" data-number="6">6</button>
+                    <button id="multiply" class="op btnPad" data-operator="*">×</button>
+                    <button id="n7" class="num btnPad" data-number="7">7</button>
+                    <button id="n8" class="num btnPad" data-number="8">8</button>
+                    <button id="n9" class="num btnPad" data-number="9">9</button>
+                    <button id="subtract" class="op btnPad" data-operator="-">-</button>
+                    <button id="backspace" class="btnPad">DEL</button>
+                    <button id="n0" class="num btnPad" data-number="0">0</button>
+                    <button id="decimal" class="num btnPad" data-number=".">.</button>
+                    <button id="equal" class="op btnPad" data-operator="=">=</button>
             </section>
         </main>
 
