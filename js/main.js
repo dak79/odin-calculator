@@ -99,12 +99,14 @@ function populateDisplay(event) {
         decimalBtn.disabled = false;
     }
 
-    display.innerText += event.target.dataset.number;
-    digitCounter += 1;
+    if (digitCounter < 10) {
+        display.innerText += event.target.dataset.number;
+        digitCounter += 1;
 
-    // Allowing only one .
-    if (event.target.dataset.number === '.') {
-        decimalBtn.disabled = true;
+        // Allowing only one .
+        if (event.target.dataset.number === '.') {
+            decimalBtn.disabled = true;
+        }
     }
 
     if (calculation.operator === '-') {
@@ -207,23 +209,30 @@ function callOperate(event) {
     if (calculation.operator && calculation.firstNumber && calculation.secondNumber) {
 
         calculation.result = Number(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
+        const resultLength = calculation.result.toString().length;
 
-        if (!calculation.result) {
-            display.innerText = 0;
+        // Manage number of digits for display
+        if (resultLength > 12) {
+            display.innerText = 'Too many digits';
         } else {
-
-            // Check if the result is an integer or float and display it.
-            if (Number.isInteger(calculation.result)) {
-                display.innerText = calculation.result;
-
+            if (!calculation.result) {
+                display.innerText = 'Error';
             } else {
-                display.innerText = parseFloat(calculation.result.toFixed(6));
-            }
 
+                // Check if the result is an integer or float and display it.
+                if (Number.isInteger(calculation.result)) {
+                    display.innerText = calculation.result;
+
+                } else {
+                    display.innerText = parseFloat(calculation.result.toFixed(6));
+                }
+
+            }
         }
 
+
     } else {
-        display.innerText = 0;
+        display.innerText = 'Error';
     }
 
     calculation.isTheSecondNumber = false;
@@ -294,7 +303,7 @@ function backspace() {
     digitCounter -= 1;
 
 
-    if (!trimmedNumber || number === 'Divided for 0' || number === 'Use only real numbers') {
+    if (!trimmedNumber || number === 'Divided for 0' || number === 'Use only real numbers' || number === 'Error' || number === 'Too many digits') {
         display.innerText = 0;
         digitCounter = 0;
     }
@@ -306,7 +315,7 @@ function backspace() {
 function negative(){
     const number = display.innerText;
 
-    if (number !== '0' && number !== 'Divided for 0' && number !== 'Use only real numbers') {
+    if (number !== '0' && number !== 'Divided for 0' && number !== 'Use only real numbers' && number !== 'Error' && number !== 'Too many digits') {
         const firstChar = number.slice(0, 1)
         if (firstChar === '-') {
             display.innerText = number.substring(1);
