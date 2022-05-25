@@ -101,3 +101,4 @@ main {
 #cancel:active {
     transform: scale(0.90);
     box-shadow: 5px 5px 15px 1px rgba(255,102,89,0.25);
+}
