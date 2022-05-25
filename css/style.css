@@ -9,8 +9,8 @@
 :root {
     --roundedCorner: 5px;
     --font: 'PT Sans', sans-serif;
-    --displayBackground: #4f5b62;
-    --numbersBackground: #263238;
+    --displayBackground: #455a64;
+    --numbersBackground: #1c313a;
     --operatorsBackground: #006978;
     --clearBackground: #d32f2f;
     --digitColor: #FFFFFF;
@@ -72,6 +72,20 @@ main {
     background-color: var(--operatorsBackground);
 }
 
+.op:hover {
+    box-shadow: 0.5px 0.5px 2px 2px rgba(86,200,213,0.7);
+
+}
+
 #cancel.btnPad {
     background-color: var(--clearBackground);
+}
+
+#cancel:hover {
+    box-shadow: 0.5px 0.5px 2px 2px rgba(255,102,89,0.7);
+
+}
+
+.shadowWhite:hover {
+    box-shadow: 0.5px 0.5px 2px 2px rgba(113,135,146,0.8);
 }
