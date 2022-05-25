@@ -204,10 +204,11 @@ function callOperate(event) {
     if (resultLength > 12) {
         display.innerText = 'Too many digits';
     } else {
-        if (!calculation.result) {
+        if (isNaN(calculation.result) || calculation.result === null || calculation.result === Infinity) {
 
             // Division for 0
             if (calculation.secondNumber === 0 && calculation.operator === '/') {
+                display.innerText = 'Division for 0'
                 equalButton();
                 digitCounter = 0;
             } else {
@@ -215,6 +216,7 @@ function callOperate(event) {
                 equalButton();
                 digitCounter = 0;
             }
+
         } else {
 
             // Check if the result is an integer or float and display it.
@@ -224,7 +226,6 @@ function callOperate(event) {
             } else {
                 display.innerText = parseFloat(calculation.result.toFixed(6));
             }
-
         }
     }
 
@@ -296,7 +297,7 @@ function backspace() {
     digitCounter -= 1;
 
 
-    if (!trimmedNumber || number === 'Infinity' || number === 'Use only real numbers' || number === 'Error' || number === 'Too many digits') {
+    if (!trimmedNumber || number === 'Infinity' || number === 'Use only real numbers' || number === 'Error' || number === 'Too many digits' || number === 'Division for 0') {
         display.innerText = 0;
         digitCounter = 0;
     }
@@ -308,7 +309,7 @@ function backspace() {
 function negative(){
     const number = display.innerText;
 
-    if (number !== '0' && number !== 'Infinity' && number !== 'Use only real numbers' && number !== 'Error' && number !== 'Too many digits') {
+    if (number !== '0' && number !== 'Infinity' && number !== 'Use only real numbers' && number !== 'Error' && number !== 'Too many digits' && number !== 'Division for 0') {
         const firstChar = number.slice(0, 1)
         if (firstChar === '-') {
             display.innerText = number.substring(1);
