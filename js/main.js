@@ -157,7 +157,6 @@ function calculate(event) {
         } else {
             calculation.secondNumber = Number(display.innerText);
 
-            console.log(calculation.operator, calculation.secondNumber)
             // Use the first number if the second is null
             if (isNaN(calculation.secondNumber) || calculation.secondNumber === null) {
                 calculation.secondNumber = Number(calculation.firstNumber);
