@@ -197,7 +197,7 @@ function callOperate(event) {
     if (!Number.isInteger(calculation.secondNumber)) {
         parseFloat(calculation.secondNumber.toFixed(6));
     }
-
+    console.log(calculation.operator, calculation.secondNumber)
     // Division for 0
     if (calculation.operator === '/' && calculation.secondNumber === 0) {
         display.innerText = 'Divided for 0';
@@ -327,7 +327,6 @@ function negative(){
     } else {
         display.innerHTML = 0;
     }
-
 }
 
 /**
