@@ -122,9 +122,8 @@ function populateDisplay(event) {
 * @param {object} event fired from click listener on calc operator buttons
 */
 function calculate(event) {
-
     // Check if it is the first input
-    if (!calculation.firstNumber || !calculation.secondNumber) {
+    if (calculation.firstNumber === null || calculation.secondNumber === null) {
 
         // Check if it is the first operand or the second
         if (!calculation.isTheSecondNumber) {
@@ -158,8 +157,9 @@ function calculate(event) {
         } else {
             calculation.secondNumber = Number(display.innerText);
 
+            console.log(calculation.operator, calculation.secondNumber)
             // Use the first number if the second is null
-            if (!calculation.secondNumber) {
+            if (isNaN(calculation.secondNumber) || calculation.secondNumber === null) {
                 calculation.secondNumber = Number(calculation.firstNumber);
             }
 
@@ -197,42 +197,36 @@ function callOperate(event) {
     if (!Number.isInteger(calculation.secondNumber)) {
         parseFloat(calculation.secondNumber.toFixed(6));
     }
-    console.log(calculation.operator, calculation.secondNumber)
-    // Division for 0
-    if (calculation.operator === '/' && calculation.secondNumber === 0) {
-        display.innerText = 'Divided for 0';
-        equalButton();
-        digitCounter = 0;
-    }
 
-    // Check if we have the necessary parameters for calling operate
-    if (calculation.operator && calculation.firstNumber && calculation.secondNumber) {
+    calculation.result = Number(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
+    const resultLength = calculation.result.toString().length;
 
-        calculation.result = Number(operate(calculation.operator, calculation.firstNumber, calculation.secondNumber));
-        const resultLength = calculation.result.toString().length;
-
-        // Manage number of digits for display
-        if (resultLength > 12) {
-            display.innerText = 'Too many digits';
-        } else {
-            if (!calculation.result) {
-                display.innerText = 'Error';
-            } else {
-
-                // Check if the result is an integer or float and display it.
-                if (Number.isInteger(calculation.result)) {
-                    display.innerText = calculation.result;
-
-                } else {
-                    display.innerText = parseFloat(calculation.result.toFixed(6));
-                }
-
-            }
-        }
-
-
+    // Manage number of digits for display
+    if (resultLength > 12) {
+        display.innerText = 'Too many digits';
     } else {
-        display.innerText = 'Error';
+        if (!calculation.result) {
+
+            // Division for 0
+            if (calculation.secondNumber === 0 && calculation.operator === '/') {
+                equalButton();
+                digitCounter = 0;
+            } else {
+                display.innerText = 'Error';
+                equalButton();
+                digitCounter = 0;
+            }
+        } else {
+
+            // Check if the result is an integer or float and display it.
+            if (Number.isInteger(calculation.result)) {
+                display.innerText = calculation.result;
+
+            } else {
+                display.innerText = parseFloat(calculation.result.toFixed(6));
+            }
+
+        }
     }
 
     calculation.isTheSecondNumber = false;
@@ -303,7 +297,7 @@ function backspace() {
     digitCounter -= 1;
 
 
-    if (!trimmedNumber || number === 'Divided for 0' || number === 'Use only real numbers' || number === 'Error' || number === 'Too many digits') {
+    if (!trimmedNumber || number === 'Infinity' || number === 'Use only real numbers' || number === 'Error' || number === 'Too many digits') {
         display.innerText = 0;
         digitCounter = 0;
     }
@@ -315,7 +309,7 @@ function backspace() {
 function negative(){
     const number = display.innerText;
 
-    if (number !== '0' && number !== 'Divided for 0' && number !== 'Use only real numbers' && number !== 'Error' && number !== 'Too many digits') {
+    if (number !== '0' && number !== 'Infinity' && number !== 'Use only real numbers' && number !== 'Error' && number !== 'Too many digits') {
         const firstChar = number.slice(0, 1)
         if (firstChar === '-') {
             display.innerText = number.substring(1);
@@ -326,6 +320,7 @@ function negative(){
 
     } else {
         display.innerHTML = 0;
+        digitCounter = 0;
     }
 }
 
