@@ -4,7 +4,7 @@
 [Calculator](https://dak79.github.io/odin-calculator/)
 
 ## Description
-This project is part of [The Odin Project - Foundation Course](https://www.theodinproject.com/lessons/foundations-calculator). 
+This project is part of [The Odin Project - Foundations Path](https://www.theodinproject.com/lessons/foundations-calculator). 
 The goal here is to combine all HTML, CSS and JavaScript basis learned until this pont of the path. The outcome is a pocket calculator with some feature.
 
 ## Tecnologies
